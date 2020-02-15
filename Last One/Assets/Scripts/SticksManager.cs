@@ -5,20 +5,18 @@ using UnityEngine;
 public class SticksManager : MonoBehaviour
 {
     public List<GameObject> sticks = new List<GameObject>();
-    public List<GameObject> hitSticks = new List<GameObject>();
     public int hitSticksNumber;
-    [SerializeField] private int lastAvailableStick;
+    public int lastAvailableStick = 3;
 
-    void Update()
+    public void UpdateAvailableSticks()
     {
-
-    }
-
-    private void Reset()
-    {
-        for(int i = 0; i < sticks.Count; i++)
+        for (int i = 0; i < sticks.Count; i++)
         {
-            hitSticks.Remove(sticks[i]);
+            if (i < lastAvailableStick)
+            {
+                sticks[i - 1].GetComponent<BoxCollider2D>().enabled = true;
+                Debug.Log("Stick #" + (i - 1).ToString() + " switched on!");
+            }
         }
     }
 }
